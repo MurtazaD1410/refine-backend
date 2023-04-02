@@ -1,15 +1,15 @@
 import express from "express";
 import * as dotenv from "dotenv";
-// import path from "path";
+import path from "path";
 import cors from "cors";
 import connectDB from "./mongodb/connect.js";
 import userRouter from "./routes/user.routes.js";
 import propertyRouter from "./routes/property.routes.js";
-// import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url';
 const PORT = process.env.PORT || 8080;
-// const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 
-// const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -21,8 +21,8 @@ app.get("/", (req, res) => {
   res.send({ message: "Hello World!" });
 });
 
-// app.use(express.static(path.join(__dirname, "../client/build")));
-// app.get("*", (req, res) => { res.sendFile(path.join(__dirname, "../client/build/index.html")) });
+app.use(express.static(path.join(__dirname, "../client/build")));
+app.get("*", (req, res) => { res.sendFile(path.join(__dirname, "../client/build/index.html")) });
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/properties", propertyRouter);
